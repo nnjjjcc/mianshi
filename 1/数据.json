@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "bookname": "西游记",
+    "author": "吴承恩",
+    "publisher": "北京出版社"
+  },
+  {
+    "id": 2,
+    "bookname": "红楼梦",
+    "author": "曹雪芹",
+    "publisher": "上海出版社"
+  },
+  {
+    "id": 5,
+    "bookname": "水浒传",
+    "author": "施耐庵",
+    "publisher": "清华出版社"
+  },
+  {
+    "id": 12,
+    "bookname": "三国演义",
+    "author": "罗贯中",
+    "publisher": "商务出版社"
+  }
+]
