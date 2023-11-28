@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function Fn_init(a, b, c) {
+        console.log("最终的结果：", a * b * c);
+      }
+      function curryization(fn, params) {
+        const lth = fn.length;
+
+        params = params || [];
+        console.log("params", params);
+        return function (...args) {
+          // 收集fn函数的参数
+          // newArgs = params.concat(Array.prototype.slice.call(arguments))
+          newArgs = params.concat(args);
+          console.log("newArgs", newArgs);
+          if (newArgs.length < lth) {
+            // 继续执行curryization柯里化函数，继续收集参数，this指向window
+            return curryization.call(this, fn, newArgs);
+          } else {
+            // 所有参数收集完毕，整体执行源函数，this指向window
+            return fn.apply(this, newArgs);
+          }
+        };
+      }
+      const curryFunc = curryization(Fn_init);
+
+      curryFunc(2)(3, 4);
+    </script>
+  </body>
+</html>

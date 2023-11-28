@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library Due Dates</title>
+    <style>
+      .overdue {
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <table id="libraryTable">
+      <thead>
+        <tr>
+          <th>书名</th>
+          <th>借书时间</th>
+          <th>还书时间</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Book 1</td>
+          <td>2023-11-20</td>
+          <td>2023-12-05</td>
+        </tr>
+        <tr>
+          <td>Book 2</td>
+          <td>2023-11-15</td>
+          <td>2023-11-28</td>
+        </tr>
+        <tr>
+          <td>Book 3</td>
+          <td>2023-11-10</td>
+          <td>2023-11-22</td>
+        </tr>
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+
+    <script>
+      // 获取表格中的数据
+      const table = document.getElementById("libraryTable");
+      const rows = table.querySelectorAll("tbody tr");
+
+      // 设置当前时间和借书时长
+      const today = new Date(); // 当前时间
+      const limit = 14; // 允许的借书时长（天）
+
+      let overdueCount = 0; // 用于统计超期的行数
+
+      // 遍历表格中的每一行
+      rows.forEach((row) => {
+        let borrowDate = new Date(row.cells[1].textContent);
+        let returnDate = new Date(row.cells[2].textContent);
+        let dueDate = new Date(borrowDate);
+        dueDate.setDate(borrowDate.getDate() + limit);
+        if (today > dueDate) {
+          row.classList.add("overdue");
+          overdueCount++;
+        } else {
+          row.classList.remove("overdue");
+        }
+      });
+
+      console.log(`超期行数：${overdueCount}`);
+    </script>
+  </body>
+</html>

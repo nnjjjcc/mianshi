@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="btn">提交</button>
+    <script>
+      let btn = document.getElementById("btn");
+      function send() {
+        console.log("提交了");
+      }
+      btn.addEventListener("click", throttle(send, 3000));
+      function deBounce(fn, delay, immediate = false, resultCallBack) {
+        let timer = null;
+        let isInvoke = false;
+        let result = null;
+
+        const _debounce = function (...args) {
+          if (timer) {
+            clearTimeout(timer);
+          }
+          if (immediate && !isInvoke) {
+            result = fn.apply(this, args);
+            resultCallBack(result);
+            isInvoke = true;
+          } else {
+            timer = setTimeout(() => {
+              result = fn.apply(this, args);
+              resultCallBack(result);
+
+              isInvoke = false;
+            }, delay);
+          }
+        };
+        _debounce.cancel = function () {
+          if (timer) clearTimeout(timer);
+          timer = null;
+          isInvoke = false;
+          s;
+        };
+        return _debounce;
+      }
+      function throttle(fn, delay) {
+        let prevTime = Date.now();
+        return function () {
+          let currentTime = Date.now();
+          if (currentTime - prevTime > delay) {
+            fn.apply(this, arguments);
+            prevTime = Date.now();
+          }
+        };
+      }
+      function testFunction(message) {
+        console.log(message);
+      }
+      const debouncedFunction = deBounce(testFunction, 500, true);
+      debouncedFunction("Hello, this is immediate invocation!");
+
+      // 在短时间内再次调用防抖函数
+      setTimeout(() => {
+        debouncedFunction("This should be debounced!");
+      }, 300);
+
+      // 在足够长的时间后再次调用防抖函数
+      setTimeout(() => {
+        debouncedFunction(
+          "This should also be debounced, but will be invoked after delay!"
+        );
+      }, 800);
+    </script>
+  </body>
+</html>

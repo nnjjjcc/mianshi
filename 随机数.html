@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>随机数</title>
+    <style>
+      * {
+        text-align: center;
+      }
+      p {
+        width: 600px;
+        margin: 20px auto;
+        border: 2px solid rgb(240, 120, 190);
+      }
+    </style>
+  </head>
+  <body>
+    <button>开始</button>
+    <p></p>
+
+    <script>
+      var btn = document.getElementsByTagName("button")[0];
+      var p = document.getElementsByTagName("p")[0];
+
+      btn.onclick = function () {
+        p.innerHTML = "";
+        var str = new Array();
+
+        while (str.length < 10) {
+          var arr = Math.floor(Math.random() * 80 + 20); //生成一个20-100的随机数，并向上取整。
+          if (str.indexOf(arr) == -1) {
+            str = str.concat(arr);
+            var str1 = str.join("  &nbsp;  "); //以空格为分割符
+          }
+        }
+        p.innerHTML += str1;
+      };
+    </script>
+  </body>
+</html>

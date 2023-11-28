@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input id="inputField" type="text" />
+    <p id="outputPara"></p>
+    <button id="incrementButton">增加</button>
+    <script>
+      const data = {
+        inputValue: "",
+      };
+      const dataProxy = new Proxy(data, {
+        set(target, key, value) {
+          target[key] = value;
+          if (key === "inputValue") {
+            const outputPara = document.getElementById("outputPara");
+            outputPara.textContent = value;
+            inputField.textContent = value;
+          }
+          return true;
+        },
+      });
+      const inputField = document.getElementById("inputField");
+      inputField.addEventListener("input", function () {
+        dataProxy.inputValue = inputField.value;
+      });
+      const outputPara = document.getElementById("outputPara");
+      outputPara.textContent = dataProxy.inputValue;
+      const incrementButton = document.getElementById("incrementButton");
+      incrementButton.addEventListener("click", () => {
+        dataProxy.inputValue += 1;
+        inputField.value = dataProxy.inputValue;
+      });
+    </script>
+  </body>
+</html>
